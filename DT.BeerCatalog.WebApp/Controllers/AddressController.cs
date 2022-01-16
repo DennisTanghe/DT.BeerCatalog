@@ -8,6 +8,7 @@ namespace DT.BeerCatalog.WebApp.Controllers
     public class AddressController : Controller
     {
         private IAddressRepository _addressRepository;
+        private AddressViewModel _addressViewModel = new AddressViewModel();
 
         public AddressController(IAddressRepository addressRepository)
         {
@@ -17,11 +18,10 @@ namespace DT.BeerCatalog.WebApp.Controllers
         // GET: AddressController
         public ActionResult Index()
         {
-            AddressViewModel addressViewModel = new AddressViewModel();
-            addressViewModel.Addresses = _addressRepository.GetAllAddresses();
-            addressViewModel.PageTitle = "Address List";
+            _addressViewModel.Addresses = _addressRepository.GetAllAddresses();
+            _addressViewModel.PageTitle = "Address List";
 
-            return View(addressViewModel);
+            return View(_addressViewModel);
         }
 
         // GET: AddressController/Details/5
@@ -33,16 +33,21 @@ namespace DT.BeerCatalog.WebApp.Controllers
         // GET: AddressController/Create
         public ActionResult Create()
         {
-            return View();
+            _addressViewModel.PageTitle = "Add new address";
+            _addressViewModel.CurrentAddress = new Address();
+
+            return View(_addressViewModel);
         }
 
         // POST: AddressController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([Bind("Street,Number,PostalCode,City,Country")] Address address)
         {
             try
             {
+                _addressRepository.AddAddress(address);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

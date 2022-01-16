@@ -7,5 +7,7 @@ namespace DT.BeerCatalog.WebApp.Models
         public string PageTitle { get; set; }
 
         public List<Address> Addresses { get; set; }
+
+        public Address CurrentAddress { get; set; }
     }
 }
