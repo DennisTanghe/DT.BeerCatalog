@@ -1,0 +1,65 @@
+﻿@model AddressViewModel
+
+@{
+    ViewData["Title"] = "Address List";
+}
+
+<h1>@Model.PageTitle</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Addresses.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Addresses.First().Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Addresses.First().Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Addresses.First().PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Addresses.First().City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Addresses.First().Country)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var address in Model.Addresses) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => address.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => address.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => address.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => address.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => address.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => address.Country)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=address.Id */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=address.Id */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=address.Id */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
