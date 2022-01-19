@@ -11,29 +11,39 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CurrentAddress.Street" class="control-label"></label>
-                <input asp-for="CurrentAddress.Street" class="form-control" />
-                <span asp-validation-for="CurrentAddress.Street" class="text-danger"></span>
+                @Html.LabelFor(model => model.CurrentAddress.Street, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CurrentAddress.Street)
+                    @Html.ValidationMessageFor(model => model.CurrentAddress.Street)
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="CurrentAddress.Number" class="control-label"></label>
-                <input asp-for="CurrentAddress.Number" class="form-control" />
-                <span asp-validation-for="CurrentAddress.Number" class="text-danger"></span>
+                @Html.LabelFor(model => model.CurrentAddress.Number, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CurrentAddress.Number)
+                    @Html.ValidationMessageFor(model => model.CurrentAddress.Number)
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="CurrentAddress.PostalCode" class="control-label"></label>
-                <input asp-for="CurrentAddress.PostalCode" class="form-control" />
-                <span asp-validation-for="CurrentAddress.PostalCode" class="text-danger"></span>
+                @Html.LabelFor(model => model.CurrentAddress.PostalCode, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CurrentAddress.PostalCode)
+                    @Html.ValidationMessageFor(model => model.CurrentAddress.PostalCode)
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="CurrentAddress.City" class="control-label"></label>
-                <input asp-for="CurrentAddress.City" class="form-control" />
-                <span asp-validation-for="CurrentAddress.City" class="text-danger"></span>
+                @Html.LabelFor(model => model.CurrentAddress.City, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CurrentAddress.City)
+                    @Html.ValidationMessageFor(model => model.CurrentAddress.City)
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="CurrentAddress.Country" class="control-label"></label>
-                <input asp-for="CurrentAddress.Country" class="form-control" />
-                <span asp-validation-for="CurrentAddress.Country" class="text-danger"></span>
+                @Html.LabelFor(model => model.CurrentAddress.Country, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CurrentAddress.Country)
+                    @Html.ValidationMessageFor(model => model.CurrentAddress.Country)
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

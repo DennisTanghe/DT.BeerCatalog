@@ -1,0 +1,58 @@
+﻿@model AddressViewModel
+
+@{
+    ViewData["Title"] = "Update Address";
+}
+
+<h1>@Model.PageTitle</h1>
+
+<form asp-action="Edit" class="row g-3 needs-validation" novalidate >
+    @Html.HiddenFor(model => model.CurrentAddress.Id)
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        @Html.LabelFor(model => model.CurrentAddress.Street, new { @class = "form-label" })
+        @Html.EditorFor(model => model.CurrentAddress.Street, new { @class = "form-control" })
+        <div class="invalid-feedback">
+            @Html.ValidationMessageFor(model => model.CurrentAddress.Street)
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(model => model.CurrentAddress.Number, new { @class = "form-label" })
+        @Html.EditorFor(model => model.CurrentAddress.Number, new { @class = "form-control" })
+        <div class="invalid-feedback">
+            @Html.ValidationMessageFor(model => model.CurrentAddress.Number)
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(model => model.CurrentAddress.PostalCode, new { @class = "form-label" })
+        @Html.EditorFor(model => model.CurrentAddress.PostalCode, new { @class = "form-control" })
+        <div class="invalid-feedback">
+            @Html.ValidationMessageFor(model => model.CurrentAddress.PostalCode)
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(model => model.CurrentAddress.City, new { @class = "form-label" })
+        @Html.EditorFor(model => model.CurrentAddress.City, new { @class = "form-control" })
+        <div class="invalid-feedback">
+            @Html.ValidationMessageFor(model => model.CurrentAddress.City)
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(model => model.CurrentAddress.Country, new { @class = "form-label" })
+        @Html.EditorFor(model => model.CurrentAddress.Country, new { @class = "form-control" })
+        <div class="invalid-feedback">
+            @Html.ValidationMessageFor(model => model.CurrentAddress.Country)
+        </div>
+    </div>
+    <div class="mb-3">
+        <input type="submit" value="Edit" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

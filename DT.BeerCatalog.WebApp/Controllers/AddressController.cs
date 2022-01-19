@@ -27,7 +27,10 @@ namespace DT.BeerCatalog.WebApp.Controllers
         // GET: AddressController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            _addressViewModel.PageTitle = "Address Details";
+            _addressViewModel.CurrentAddress = _addressRepository.GetAddress(id);
+
+            return View(_addressViewModel);
         }
 
         // GET: AddressController/Create
@@ -42,54 +45,68 @@ namespace DT.BeerCatalog.WebApp.Controllers
         // POST: AddressController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("Street,Number,PostalCode,City,Country")] Address address)
+        public ActionResult Create(AddressViewModel addressViewModel)
         {
             try
             {
-                _addressRepository.AddAddress(address);
+                _addressRepository.AddAddress(addressViewModel.CurrentAddress);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                addressViewModel.PageTitle += " [Failed]";
+
+                return View(addressViewModel);
             }
         }
 
         // GET: AddressController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            _addressViewModel.PageTitle = "Update address";
+            _addressViewModel.CurrentAddress = _addressRepository.GetAddress(id);
+
+            return View(_addressViewModel);
         }
 
         // POST: AddressController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, AddressViewModel addressViewModel)
         {
             try
             {
+                _addressRepository.UpdateAddress(addressViewModel.CurrentAddress);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                addressViewModel.PageTitle += " [Failed]";
+
+                return View(addressViewModel);
             }
         }
 
         // GET: AddressController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            _addressViewModel.PageTitle = "Delete address";
+            _addressViewModel.CurrentAddress = _addressRepository.GetAddress(id);
+
+            return View(_addressViewModel);
         }
 
         // POST: AddressController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, AddressViewModel addressViewModel)
         {
             try
             {
+                _addressRepository.DeleteAddress(id);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
