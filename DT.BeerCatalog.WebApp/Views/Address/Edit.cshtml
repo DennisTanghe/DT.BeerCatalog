@@ -1,58 +1,60 @@
 ﻿@model AddressViewModel
 
-@{
-    ViewData["Title"] = "Update Address";
-}
-
-<h1>@Model.PageTitle</h1>
-
-<form asp-action="Edit" class="row g-3 needs-validation" novalidate >
-    @Html.HiddenFor(model => model.CurrentAddress.Id)
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="mb-3">
-        @Html.LabelFor(model => model.CurrentAddress.Street, new { @class = "form-label" })
-        @Html.EditorFor(model => model.CurrentAddress.Street, new { @class = "form-control" })
-        <div class="invalid-feedback">
-            @Html.ValidationMessageFor(model => model.CurrentAddress.Street)
-        </div>
+<div class="row">
+    <div class="col-md-12">
+        <h1>@Model.PageTitle</h1>
+        <h3>@Model.ErrorMessage</h3>
     </div>
-    <div class="mb-3">
-        @Html.LabelFor(model => model.CurrentAddress.Number, new { @class = "form-label" })
-        @Html.EditorFor(model => model.CurrentAddress.Number, new { @class = "form-control" })
-        <div class="invalid-feedback">
-            @Html.ValidationMessageFor(model => model.CurrentAddress.Number)
-        </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit" method="post" role="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input asp-for="CurrentAddress.Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="CurrentAddress.Street" class="col-md-2 control-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="CurrentAddress.Street" class="form-control" />
+                    <span asp-validation-for="CurrentAddress.Street" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentAddress.Number" class="col-md-2 control-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="CurrentAddress.Number" class="form-control" />
+                    <span asp-validation-for="CurrentAddress.Number" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentAddress.PostalCode" class="col-md-2 control-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="CurrentAddress.PostalCode" class="form-control" />
+                    <span asp-validation-for="CurrentAddress.PostalCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentAddress.City" class="col-md-2 control-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="CurrentAddress.City" class="form-control" />
+                    <span asp-validation-for="CurrentAddress.City" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentAddress.Country" class="col-md-2 control-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="CurrentAddress.Country" class="form-control" />
+                    <span asp-validation-for="CurrentAddress.Country" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        @Html.LabelFor(model => model.CurrentAddress.PostalCode, new { @class = "form-label" })
-        @Html.EditorFor(model => model.CurrentAddress.PostalCode, new { @class = "form-control" })
-        <div class="invalid-feedback">
-            @Html.ValidationMessageFor(model => model.CurrentAddress.PostalCode)
-        </div>
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(model => model.CurrentAddress.City, new { @class = "form-label" })
-        @Html.EditorFor(model => model.CurrentAddress.City, new { @class = "form-control" })
-        <div class="invalid-feedback">
-            @Html.ValidationMessageFor(model => model.CurrentAddress.City)
-        </div>
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(model => model.CurrentAddress.Country, new { @class = "form-label" })
-        @Html.EditorFor(model => model.CurrentAddress.Country, new { @class = "form-control" })
-        <div class="invalid-feedback">
-            @Html.ValidationMessageFor(model => model.CurrentAddress.Country)
-        </div>
-    </div>
-    <div class="mb-3">
-        <input type="submit" value="Edit" class="btn btn-primary" />
-    </div>
-</form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<div class="row">
+    <div class="col-md-12">
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

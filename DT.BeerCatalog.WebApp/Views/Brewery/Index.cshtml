@@ -1,0 +1,64 @@
+﻿@model BreweryViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>@Model.PageTitle</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <a asp-action="Create">Create New</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Breweries.First().Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Breweries.First().Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Breweries.First().About)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Breweries.First().Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Breweries.First().Beers)
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var brewery in Model.Breweries) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => brewery.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => brewery.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => brewery.About)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => brewery.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => brewery.Beers)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id=brewery.Id }) |
+                        @Html.ActionLink("Edit", "Edit", new { id=brewery.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=brewery.Id })
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+</div>

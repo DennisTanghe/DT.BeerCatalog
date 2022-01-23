@@ -49,16 +49,23 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             try
             {
-                _addressRepository.AddAddress(addressViewModel.CurrentAddress);
+                addressViewModel.PageTitle = "Add new address";
 
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _addressRepository.AddAddress(addressViewModel.CurrentAddress);
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch
             {
-                addressViewModel.PageTitle += " [Failed]";
+                // TODO add logging functionality
 
-                return View(addressViewModel);
+                addressViewModel.ErrorMessage = "Sorry, something went wrong.";
             }
+
+            return View(addressViewModel);
         }
 
         // GET: AddressController/Edit/5
@@ -77,16 +84,23 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             try
             {
-                _addressRepository.UpdateAddress(addressViewModel.CurrentAddress);
+                addressViewModel.PageTitle = "Update address";
 
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _addressRepository.UpdateAddress(addressViewModel.CurrentAddress);
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch
             {
-                addressViewModel.PageTitle += " [Failed]";
+                // TODO add logging functionality
 
-                return View(addressViewModel);
+                addressViewModel.ErrorMessage = "Sorry, something went wrong.";
             }
+
+            return View(addressViewModel);
         }
 
         // GET: AddressController/Delete/5
@@ -105,14 +119,20 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             try
             {
+                addressViewModel.PageTitle = "Delete address";
+
                 _addressRepository.DeleteAddress(id);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                // TODO add logging functionality
+
+                addressViewModel.ErrorMessage = "Sorry, something went wrong.";
             }
+
+            return View(addressViewModel);
         }
     }
 }

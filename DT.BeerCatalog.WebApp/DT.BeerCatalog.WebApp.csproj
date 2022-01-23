@@ -15,4 +15,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\data\addresses\" />
+    <Folder Include="wwwroot\data\breweries\" />
+  </ItemGroup>
+
 </Project>

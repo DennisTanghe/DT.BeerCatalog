@@ -1,0 +1,46 @@
+﻿@model BreweryViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>@Model.PageTitle</h1>
+        <h3>@Model.ErrorMessage</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit" method="post" role="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input asp-for="CurrentBrewery.Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="CurrentBrewery.Name" class="col-md-2 control-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="CurrentBrewery.Name" class="form-control" />
+                    <span asp-validation-for="CurrentBrewery.Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentBrewery.About" class="col-md-2 control-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="CurrentBrewery.About" class="form-control" />
+                    <span asp-validation-for="CurrentBrewery.About" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentBrewery.Address" class="col-md-2 control-label"></label>
+                <div class="col-md-8">
+                    <select asp-for="CurrentBrewery.Address" asp-items="Model.AddressList"></select>
+                    <span asp-validation-for="CurrentBrewery.Address" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

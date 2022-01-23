@@ -1,13 +1,14 @@
 ﻿using DT.BeerCatalog.Models;
+using System.Text.Json;
 
 namespace DT.BeerCatalog.FileRepository
 {
     public class AddressRepository : IAddressRepository
     {
-        // Currently started with in-memmory only
         private List<Address> _addresses = new List<Address>();
+        private bool _addressListIsEmpty = false;
 
-        public Address AddAddress(Address Address)
+        public Address AddAddress(Address address)
         {
             int newId = 0;
             
@@ -15,11 +16,13 @@ namespace DT.BeerCatalog.FileRepository
 
             newId += 1;
 
-            Address.Id = newId;
+            address.Id = newId;
 
-            _addresses.Add(Address);
+            SaveAddressToFile(address);
 
-            return Address;
+            _addresses.Add(address);
+
+            return address;
         }
 
         public Address DeleteAddress(int id)
@@ -31,6 +34,8 @@ namespace DT.BeerCatalog.FileRepository
                 throw new Exception("Address not found");
             }
 
+            DeleteAddressFile(id);
+
             _addresses.Remove(address);
 
             return address;
@@ -38,11 +43,21 @@ namespace DT.BeerCatalog.FileRepository
 
         public List<Address> GetAllAddresses()
         {
+            if (_addresses.Count == 0 && !_addressListIsEmpty)
+            {
+                LoadAllAddresses();
+            }
+
             return _addresses;
         }
 
         public Address GetAddress(int id)
         {
+            if (_addresses.Count == 0 && !_addressListIsEmpty)
+            {
+                LoadAllAddresses();
+            }
+
             Address? address = _addresses.FirstOrDefault(b => b.Id == id);
 
             if (address == null)
@@ -68,7 +83,46 @@ namespace DT.BeerCatalog.FileRepository
             addressToUpdate.City = address.City;
             addressToUpdate.Country = address.Country;
 
+            SaveAddressToFile(address);
+
             return addressToUpdate;
+        }
+
+        private void LoadAllAddresses()
+        {
+            string[] addressFiles = Directory.GetFiles("wwwroot\\data\\addresses");
+            bool addressFound = false;
+
+            foreach(string file in addressFiles)
+            {
+                string json = File.ReadAllText(file);
+
+                Address? address = JsonSerializer.Deserialize<Address>(json);
+
+                if (address != null)
+                {
+                    _addresses.Add(address);
+                    addressFound = true;
+                }
+            }
+
+            if (!addressFound) _addressListIsEmpty = true;
+        }
+
+        private void SaveAddressToFile(Address address)
+        {
+            string json = JsonSerializer.Serialize(address);
+
+            File.WriteAllText($"wwwroot\\data\\addresses\\{address.Id}.json", json);
+
+            _addressListIsEmpty = false;
+        }
+
+        private void DeleteAddressFile(int id)
+        {
+            string filePath = $"wwwroot\\data\\addresses\\{id}.json";
+
+            File.Delete(filePath);
         }
     }
 }

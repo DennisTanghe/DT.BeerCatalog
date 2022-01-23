@@ -1,4 +1,4 @@
-﻿@model AddressViewModel
+﻿@model BreweryViewModel
 
 
 <div class="row">
@@ -9,27 +9,23 @@
 
 <div class="row">
     <div class="col-md-4">Street</div>
-    <div class="col-md-8">@Model.CurrentAddress.Street</div>
+    <div class="col-md-8">@Model.CurrentBrewery.Name</div>
 </div>
 <div class="row">
     <div class="col-md-4">Number</div>
-    <div class="col-md-8">@Model.CurrentAddress.Number</div>
+    <div class="col-md-8">@Model.CurrentBrewery.About</div>
 </div>
 <div class="row">
     <div class="col-md-4">PostalCode</div>
-    <div class="col-md-8">@Model.CurrentAddress.PostalCode</div>
+    <div class="col-md-8">@Model.CurrentBrewery.Address</div>
 </div>
 <div class="row">
     <div class="col-md-4">City</div>
-    <div class="col-md-8">@Model.CurrentAddress.City</div>
-</div>
-<div class="row">
-    <div class="col-md-4">Country</div>
-    <div class="col-md-8">@Model.CurrentAddress.Country</div>
+    <div class="col-md-8">@Model.CurrentBrewery.Beers</div>
 </div>
 <div class="row">
     <div class="col-md-4">Id</div>
-    <div class="col-md-8">@Model.CurrentAddress.Id</div>
+    <div class="col-md-8">@Model.CurrentBrewery.Id</div>
 </div>
 
 <div class="row">
