@@ -41,7 +41,9 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             _breweryViewModel.PageTitle = "Add new brewery";
             _breweryViewModel.CurrentBrewery = new Brewery();
-            _breweryViewModel.AddressList = _addressRepository.GetAllAddresses().Select(a => new SelectListItem { Value = a.Id.ToString(), Text = $"{a.Street} {a.Number}, {a.PostalCode} {a.City}" }).ToList();
+            _breweryViewModel.CurrentBrewery.Address = new Address();
+            _breweryViewModel.CurrentBrewery.Beers = new List<Beer>();
+            _breweryViewModel.AddressList = GetAllAddressesForSelect(_breweryViewModel);
 
             return View(_breweryViewModel);
         }
@@ -53,7 +55,24 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             try
             {
-                breweryViewModel.PageTitle = "Add new brewery";
+                if (breweryViewModel.SelectedAddressId != 0)
+                {
+                    breweryViewModel.CurrentBrewery.Address = _addressRepository.GetAddress(breweryViewModel.SelectedAddressId);
+                }
+
+                /*
+                // Because a Select cannot have models we need to retrieve the address and asign it here to the current brewery. 
+                // Ofcourse the model is always invalid due to the fact the Address is required, so need to recheck the validation
+                // Making the address optional in the Brewery model would be easier and better fix??? Yes because below code doesn't seem to work and SelectedAddressId is required.
+
+                ModelState.ClearValidationState(nameof(breweryViewModel));
+
+                if (!TryValidateModel(breweryViewModel, nameof(breweryViewModel)))
+                {
+                    breweryViewModel.AddressList = GetAllAddressesForSelect(breweryViewModel);
+                    return View(breweryViewModel);
+                }
+                */
 
                 if (ModelState.IsValid)
                 {
@@ -69,6 +88,10 @@ namespace DT.BeerCatalog.WebApp.Controllers
                 breweryViewModel.ErrorMessage = "Sorry, something went wrong.";
             }
 
+            // Reset props when not ok
+            breweryViewModel.PageTitle = "Add new brewery";
+            breweryViewModel.AddressList = GetAllAddressesForSelect(breweryViewModel);
+
             return View(breweryViewModel);
         }
 
@@ -77,7 +100,8 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             _breweryViewModel.PageTitle = "Update brewery";
             _breweryViewModel.CurrentBrewery = _breweryRepository.GetBrewery(id);
-            _breweryViewModel.AddressList = _addressRepository.GetAllAddresses().Select(a => new SelectListItem { Value = a.Id.ToString(), Text = $"{a.Street} {a.Number}, {a.PostalCode} {a.City}", Selected = _breweryViewModel.CurrentBrewery.Address.Id == a.Id }).ToList();
+            _breweryViewModel.SelectedAddressId = _breweryViewModel.CurrentBrewery.Address.Id;
+            _breweryViewModel.AddressList = GetAllAddressesForSelect(_breweryViewModel);
 
             return View(_breweryViewModel);
         }
@@ -89,7 +113,10 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             try
             {
-                breweryViewModel.PageTitle = "Update brewery";
+                if (breweryViewModel.SelectedAddressId != 0 && breweryViewModel.SelectedAddressId != breweryViewModel.CurrentBrewery.Address.Id)
+                {
+                    breweryViewModel.CurrentBrewery.Address = _addressRepository.GetAddress(breweryViewModel.SelectedAddressId);
+                }
 
                 if (ModelState.IsValid)
                 {
@@ -104,6 +131,10 @@ namespace DT.BeerCatalog.WebApp.Controllers
 
                 breweryViewModel.ErrorMessage = "Sorry, something went wrong.";
             }
+
+            // Reset props when not ok
+            breweryViewModel.PageTitle = "Update brewery";
+            breweryViewModel.AddressList = GetAllAddressesForSelect(breweryViewModel);
 
             return View(breweryViewModel);
         }
@@ -124,8 +155,6 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             try
             {
-                breweryViewModel.PageTitle = "Delete brewery";
-
                 _breweryRepository.DeleteBrewery(id);
 
                 return RedirectToAction(nameof(Index));
@@ -137,7 +166,18 @@ namespace DT.BeerCatalog.WebApp.Controllers
                 breweryViewModel.ErrorMessage = "Sorry, something went wrong.";
             }
 
+            breweryViewModel.PageTitle = "Delete brewery";
+
             return View(breweryViewModel);
+        }
+
+        private List<SelectListItem> GetAllAddressesForSelect(BreweryViewModel breweryViewModel)
+        {
+            return _addressRepository.GetAllAddresses().Select(a => new SelectListItem { 
+                Value = a.Id.ToString(), 
+                Text = $"{a.Street} {a.Number}, {a.PostalCode} {a.City}", 
+                Selected = breweryViewModel.CurrentBrewery.Address.Id == a.Id 
+            }).ToList();
         }
     }
 }

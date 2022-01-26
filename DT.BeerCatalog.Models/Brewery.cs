@@ -1,4 +1,6 @@
-﻿namespace DT.BeerCatalog.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace DT.BeerCatalog.Models
 {
     public class Brewery
     {
@@ -8,6 +10,7 @@
 
         public string About { get; set; }
 
+        [ValidateNever]
         public Address Address { get; set; }
 
         public List<Beer> Beers { get; set; }

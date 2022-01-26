@@ -28,12 +28,24 @@
             <div class="form-group">
                 <label asp-for="CurrentBrewery.Address" class="col-md-2 control-label"></label>
                 <div class="col-md-8">
-                    <select asp-for="CurrentBrewery.Address" asp-items="Model.AddressList"></select>
-                    <span asp-validation-for="CurrentBrewery.Address" class="text-danger"></span>
+                    <input asp-for="CurrentBrewery.Address.Id" type="hidden" />
+                    <input asp-for="CurrentBrewery.Address.Street" type="hidden" />
+                    <input asp-for="CurrentBrewery.Address.Number" type="hidden" />
+                    <input asp-for="CurrentBrewery.Address.PostalCode" type="hidden" />
+                    <input asp-for="CurrentBrewery.Address.City" type="hidden" />
+                    <input asp-for="CurrentBrewery.Address.Country" type="hidden" />
+
+                    <select asp-for="SelectedAddressId" asp-items="Model.AddressList"></select>
+                    <span asp-validation-for="SelectedAddressId" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input asp-for="CurrentBrewery.Beers" type="hidden" />
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
             </div>
         </form>
     </div>

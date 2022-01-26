@@ -20,6 +20,8 @@ namespace DT.BeerCatalog.WebApp.Models
 
         public Brewery CurrentBrewery { get; set; }
 
+        public int SelectedAddressId { get; set; }
+
         public List<SelectListItem> AddressList { get; set; }
 
         public string ErrorMessage { get; set; }

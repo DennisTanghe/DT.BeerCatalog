@@ -8,24 +8,28 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">Street</div>
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.CurrentBrewery.Id)</div>
+    <div class="col-md-8">@Model.CurrentBrewery.Id</div>
+</div>
+<div class="row">
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.CurrentBrewery.Name)</div>
     <div class="col-md-8">@Model.CurrentBrewery.Name</div>
 </div>
 <div class="row">
-    <div class="col-md-4">Number</div>
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.CurrentBrewery.About)</div>
     <div class="col-md-8">@Model.CurrentBrewery.About</div>
 </div>
 <div class="row">
-    <div class="col-md-4">PostalCode</div>
-    <div class="col-md-8">@Model.CurrentBrewery.Address</div>
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.CurrentBrewery.Address)</div>
+    <div class="col-md-8">
+        @Model.CurrentBrewery.Address.Street @Model.CurrentBrewery.Address.Number<br/>
+        @Model.CurrentBrewery.Address.PostalCode @Model.CurrentBrewery.Address.City<br/>
+        @Model.CurrentBrewery.Address.Country
+    </div>
 </div>
 <div class="row">
-    <div class="col-md-4">City</div>
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.CurrentBrewery.Beers)</div>
     <div class="col-md-8">@Model.CurrentBrewery.Beers</div>
-</div>
-<div class="row">
-    <div class="col-md-4">Id</div>
-    <div class="col-md-8">@Model.CurrentBrewery.Id</div>
 </div>
 
 <div class="row">

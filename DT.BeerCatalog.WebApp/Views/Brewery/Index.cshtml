@@ -50,7 +50,9 @@
                         @Html.DisplayFor(modelItem => brewery.About)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => brewery.Address)
+                        @Html.DisplayFor(modelItem => brewery.Address.Street) @Html.DisplayFor(modelItem => brewery.Address.Number)<br />
+                        @Html.DisplayFor(modelItem => brewery.Address.PostalCode) @Html.DisplayFor(modelItem => brewery.Address.City)<br />
+                        @Html.DisplayFor(modelItem => brewery.Address.Country)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => brewery.Beers)
