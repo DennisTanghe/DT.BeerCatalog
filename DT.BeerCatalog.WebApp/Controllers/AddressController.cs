@@ -7,8 +7,8 @@ namespace DT.BeerCatalog.WebApp.Controllers
 {
     public class AddressController : Controller
     {
-        private IAddressRepository _addressRepository;
-        private AddressViewModel _addressViewModel = new AddressViewModel();
+        private readonly IAddressRepository _addressRepository;
+        private readonly AddressViewModel _addressViewModel = new();
 
         public AddressController(IAddressRepository addressRepository)
         {

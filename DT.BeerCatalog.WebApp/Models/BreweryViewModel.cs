@@ -1,4 +1,5 @@
 ﻿using DT.BeerCatalog.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DT.BeerCatalog.WebApp.Models
@@ -20,6 +21,7 @@ namespace DT.BeerCatalog.WebApp.Models
 
         public Brewery CurrentBrewery { get; set; }
 
+        [ValidateNever] // How to allow 0 as valid value instead?
         public int SelectedAddressId { get; set; }
 
         public List<SelectListItem> AddressList { get; set; }
