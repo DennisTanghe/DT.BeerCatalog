@@ -89,7 +89,7 @@ namespace DT.BeerCatalog.FileRepository
 
         private void LoadAllBreweries()
         {
-            string[] breweryFiles = Directory.GetFiles("wwwroot\\data\\breweries");
+            string[] breweryFiles = Directory.GetFiles("D:\\Source\\DT.BeerCatalog\\Data\\Breweries");
             bool breweryFound = false;
 
             foreach (string file in breweryFiles)
@@ -112,14 +112,14 @@ namespace DT.BeerCatalog.FileRepository
         {
             string json = JsonSerializer.Serialize(brewery);
 
-            File.WriteAllText($"wwwroot\\data\\breweries\\{brewery.Id}.json", json);
+            File.WriteAllText($"D:\\Source\\DT.BeerCatalog\\Data\\Breweries\\{brewery.Id}.json", json);
 
             _breweryListIsEmpty = false;
         }
 
         private void DeleteBreweryFile(int id)
         {
-            string filePath = $"wwwroot\\data\\breweries\\{id}.json";
+            string filePath = $"D:\\Source\\DT.BeerCatalog\\Data\\Breweries\\{id}.json";
 
             File.Delete(filePath);
         }

@@ -10,7 +10,6 @@ namespace DT.BeerCatalog.Models
 
         public string About { get; set; }
 
-        [ValidateNever] // validate when new, don't validate when existing => how?
         public Address Address { get; set; }
 
         public List<Beer> Beers { get; set; }

@@ -89,15 +89,5 @@
 </div>
 
 @section Scripts{
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#addressSelector").change(function () {
-                if ($(this).val() === "0") {
-                    $("#addressForm").css( "display", "block" );
-                } else {
-                    $("#addressForm").css( "display", "none" );
-                }
-            });
-        });
-    </script>
+    <script src="~/js/BreweryCreate.js"></script>
 }

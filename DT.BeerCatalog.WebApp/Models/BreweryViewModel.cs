@@ -21,7 +21,6 @@ namespace DT.BeerCatalog.WebApp.Models
 
         public Brewery CurrentBrewery { get; set; }
 
-        [ValidateNever] // How to allow 0 as valid value instead?
         public int SelectedAddressId { get; set; }
 
         public List<SelectListItem> AddressList { get; set; }

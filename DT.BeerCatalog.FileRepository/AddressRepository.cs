@@ -90,7 +90,7 @@ namespace DT.BeerCatalog.FileRepository
 
         private void LoadAllAddresses()
         {
-            string[] addressFiles = Directory.GetFiles("wwwroot\\data\\addresses");
+            string[] addressFiles = Directory.GetFiles("D:\\Source\\DT.BeerCatalog\\Data\\Addresses");
             bool addressFound = false;
 
             foreach(string file in addressFiles)
@@ -113,14 +113,14 @@ namespace DT.BeerCatalog.FileRepository
         {
             string json = JsonSerializer.Serialize(address);
 
-            File.WriteAllText($"wwwroot\\data\\addresses\\{address.Id}.json", json);
+            File.WriteAllText($"D:\\Source\\DT.BeerCatalog\\Data\\{address.Id}.json", json);
 
             _addressListIsEmpty = false;
         }
 
         private void DeleteAddressFile(int id)
         {
-            string filePath = $"wwwroot\\data\\addresses\\{id}.json";
+            string filePath = $"D:\\Source\\DT.BeerCatalog\\Data\\{id}.json";
 
             File.Delete(filePath);
         }

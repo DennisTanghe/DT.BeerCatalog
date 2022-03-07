@@ -57,39 +57,16 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             try
             {
-                if (breweryViewModel.SelectedAddressId != 0)
-                {
-                    // Get the existing address and link it with the brewery
-
-                    breweryViewModel.CurrentBrewery.Address = _addressRepository.GetAddress(breweryViewModel.SelectedAddressId);
-                }
-                else
-                {
-                    // Create the new address and link it with the brewery
-
-                    breweryViewModel.CurrentBrewery.Address = _addressRepository.AddAddress(breweryViewModel.CurrentBrewery.Address);
-                    breweryViewModel.SelectedAddressId = breweryViewModel.CurrentBrewery.Address.Id;
-                }
-
-                /* NOT HAPPY ABOUT THIS - there must be a better way
-                 * 
-                 * It's possible to created breweries with empty addresses now!
-                 * 
-                 * Because a Select cannot have models we need to retrieve the address and asign it here to the current brewery. 
-                 * Ofcourse the model is always invalid due to the fact the Address is required, so need to recheck the validation
-                 * Making the address optional in the Brewery model would be easier and better fix??? Yes because below code doesn't seem to work and SelectedAddressId is required.
-
-                ModelState.ClearValidationState(nameof(breweryViewModel));
-
-                if (!TryValidateModel(breweryViewModel, nameof(breweryViewModel)))
-                {
-                    breweryViewModel.AddressList = GetAllAddressesForSelect(breweryViewModel);
-                    return View(breweryViewModel);
-                }
-                */
-
                 if (ModelState.IsValid)
                 {
+                    if (breweryViewModel.SelectedAddressId == -1)
+                    {
+                        // Create the new address and link it with the brewery
+
+                        breweryViewModel.CurrentBrewery.Address = _addressRepository.AddAddress(breweryViewModel.CurrentBrewery.Address);
+                        breweryViewModel.SelectedAddressId = breweryViewModel.CurrentBrewery.Address.Id;
+                    }
+
                     _breweryRepository.AddBrewery(breweryViewModel.CurrentBrewery);
 
                     return RedirectToAction(nameof(Index));
@@ -127,6 +104,7 @@ namespace DT.BeerCatalog.WebApp.Controllers
         {
             try
             {
+                // TODO fix this equaly as with create
                 if (breweryViewModel.SelectedAddressId != 0 && breweryViewModel.SelectedAddressId != breweryViewModel.CurrentBrewery.Address.Id)
                 {
                     breweryViewModel.CurrentBrewery.Address = _addressRepository.GetAddress(breweryViewModel.SelectedAddressId);
@@ -191,7 +169,7 @@ namespace DT.BeerCatalog.WebApp.Controllers
 
             addresses.Add(new SelectListItem
                 {
-                    Value = "0",
+                    Value = "-1",
                     Text = "Choose or add a new address",
                     Selected = breweryViewModel.CurrentBrewery.Address.Id == 0
                 }
