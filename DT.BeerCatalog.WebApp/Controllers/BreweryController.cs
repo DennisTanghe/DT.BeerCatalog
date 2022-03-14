@@ -39,15 +39,11 @@ namespace DT.BeerCatalog.WebApp.Controllers
         // GET: BreweryController/Create
         public ActionResult Create()
         {
-            _breweryViewModel.PageTitle = "Add new brewery";
-            _breweryViewModel.CurrentBrewery = new Brewery
-            {
-                Address = new Address(),
-                Beers = new List<Beer>()
-            };
-            _breweryViewModel.AddressList = GetAllAddressesForSelect(_breweryViewModel);
+            ResetNonFormProperties(_breweryViewModel, "create");
+            _breweryViewModel.Action = "Create";
+            _breweryViewModel.CurrentBrewery = new();
 
-            return View(_breweryViewModel);
+            return View("Form", _breweryViewModel);
         }
 
         // POST: BreweryController/Create
@@ -79,22 +75,20 @@ namespace DT.BeerCatalog.WebApp.Controllers
                 breweryViewModel.ErrorMessage = "Sorry, something went wrong.";
             }
 
-            // Reset props when not ok
-            breweryViewModel.PageTitle = "Add new brewery";
-            breweryViewModel.AddressList = GetAllAddressesForSelect(breweryViewModel);
+            ResetNonFormProperties(breweryViewModel, "create");
 
-            return View(breweryViewModel);
+            return View("Form", breweryViewModel);
         }
 
         // GET: BreweryController/Edit/5
         public ActionResult Edit(int id)
         {
-            _breweryViewModel.PageTitle = "Update brewery";
+            ResetNonFormProperties(_breweryViewModel, "edit");
+            _breweryViewModel.Action = "Edit";
             _breweryViewModel.CurrentBrewery = _breweryRepository.GetBrewery(id);
             _breweryViewModel.SelectedAddressId = _breweryViewModel.CurrentBrewery.Address.Id;
-            _breweryViewModel.AddressList = GetAllAddressesForSelect(_breweryViewModel);
 
-            return View(_breweryViewModel);
+            return View("Form", _breweryViewModel);
         }
 
         // POST: BreweryController/Edit/5
@@ -124,11 +118,9 @@ namespace DT.BeerCatalog.WebApp.Controllers
                 breweryViewModel.ErrorMessage = "Sorry, something went wrong.";
             }
 
-            // Reset props when not ok
-            breweryViewModel.PageTitle = "Update brewery";
-            breweryViewModel.AddressList = GetAllAddressesForSelect(breweryViewModel);
+            ResetNonFormProperties(breweryViewModel, "edit");
 
-            return View(breweryViewModel);
+            return View("Form", breweryViewModel);
         }
 
         // GET: BreweryController/Delete/5
@@ -161,6 +153,27 @@ namespace DT.BeerCatalog.WebApp.Controllers
             breweryViewModel.PageTitle = "Delete brewery";
 
             return View(breweryViewModel);
+        }
+
+        /// <summary>
+        /// Properties that aren't in the form submition need be filled out again
+        /// </summary>
+        /// <param name="breweryViewModel">The view model</param>
+        /// <param name="type">For 'create' or 'edit' action</param>
+        private void ResetNonFormProperties(BreweryViewModel breweryViewModel, string type)
+        {
+            if (type == "create")
+            {
+                breweryViewModel.PageTitle = "Add new brewery";
+                breweryViewModel.SubmitButtonLabel = "Create";
+            }
+            else if (type == "edit")
+            {
+                breweryViewModel.PageTitle = "Update brewery";
+                breweryViewModel.SubmitButtonLabel = "Save";
+            }
+
+            breweryViewModel.AddressList = GetAllAddressesForSelect(breweryViewModel);
         }
 
         private List<SelectListItem> GetAllAddressesForSelect(BreweryViewModel breweryViewModel)

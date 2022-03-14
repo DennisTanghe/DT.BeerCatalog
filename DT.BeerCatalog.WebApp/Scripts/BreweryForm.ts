@@ -1,5 +1,5 @@
 ﻿
-class BreweryCreate {
+class BreweryForm {
     init() {
         const self = this;
 
@@ -33,6 +33,6 @@ class BreweryCreate {
 }
 
 $(document).ready(function () {
-    let breweryCreate = new BreweryCreate();
-    breweryCreate.init();
+    const breweryForm = new BreweryForm();
+    breweryForm.init();
 });

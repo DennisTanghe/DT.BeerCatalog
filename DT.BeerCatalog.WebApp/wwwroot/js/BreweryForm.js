@@ -18,14 +18,15 @@ var BreweryCreate = /** @class */ (function () {
     BreweryCreate.prototype.getAddress = function (id) {
         $.ajax({
             url: "https://localhost:7066/api/address/" + id
-        }).then(function (data) {
-            console.info(data);
-            $("#CurrentBrewery_Address_Id").val(data.id);
-            $("#CurrentBrewery_Address_Street").val(data.street);
-            $("#CurrentBrewery_Address_Number").val(data.number);
-            $("#CurrentBrewery_Address_PostalCode").val(data.postalCode);
-            $("#CurrentBrewery_Address_City").val(data.city);
-            $("#CurrentBrewery_Address_Country").val(data.country);
+        }).then(function (address) {
+            $("#CurrentBrewery_Address_Id").val(address.id);
+            $("#CurrentBrewery_Address_Street").val(address.street);
+            $("#CurrentBrewery_Address_Number").val(address.number);
+            $("#CurrentBrewery_Address_PostalCode").val(address.postalCode);
+            $("#CurrentBrewery_Address_City").val(address.city);
+            $("#CurrentBrewery_Address_Country").val(address.country);
+        }).catch(function (error) {
+            console.error("Failed to retrieve the address from the web api", error);
         });
     };
     return BreweryCreate;
@@ -34,4 +35,4 @@ $(document).ready(function () {
     var breweryCreate = new BreweryCreate();
     breweryCreate.init();
 });
-//# sourceMappingURL=BreweryCreate.js.map
+//# sourceMappingURL=BreweryForm.js.map

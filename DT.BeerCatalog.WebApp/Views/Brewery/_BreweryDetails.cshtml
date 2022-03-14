@@ -1,0 +1,27 @@
+﻿@using DT.BeerCatalog.Models
+@model Brewery
+
+<div class="row">
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.Id)</div>
+    <div class="col-md-8">@Model.Id</div>
+</div>
+<div class="row">
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.Name)</div>
+    <div class="col-md-8">@Model.Name</div>
+</div>
+<div class="row">
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.About)</div>
+    <div class="col-md-8">@Model.About</div>
+</div>
+<div class="row">
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.Address)</div>
+    <div class="col-md-8">
+        @Model.Address.Street @Model.Address.Number<br/>
+        @Model.Address.PostalCode @Model.Address.City<br/>
+        @Model.Address.Country
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.Beers)</div>
+    <div class="col-md-8">@Model.Beers</div>
+</div>

@@ -9,6 +9,8 @@ namespace DT.BeerCatalog.WebApp.Models
         public BreweryViewModel()
         {
             PageTitle = "";
+            Action = "";
+            SubmitButtonLabel = "";
             Breweries = new List<Brewery>();
             CurrentBrewery = new Brewery();
             AddressList = new List<SelectListItem>();
@@ -16,6 +18,10 @@ namespace DT.BeerCatalog.WebApp.Models
         }
 
         public string PageTitle { get; set; }
+
+        public string Action { get; set; }
+
+        public string SubmitButtonLabel { get; set; }
 
         public List<Brewery> Breweries { get; set; }
 

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-
-namespace DT.BeerCatalog.Models
+﻿namespace DT.BeerCatalog.Models
 {
     public class Brewery
     {
@@ -13,5 +11,13 @@ namespace DT.BeerCatalog.Models
         public Address Address { get; set; }
 
         public List<Beer> Beers { get; set; }
+
+        public Brewery()
+        {
+            Name = "";
+            About = "";
+            Address = new();
+            Beers = new();
+        }
     }
 }

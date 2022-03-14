@@ -27,5 +27,13 @@ namespace DT.BeerCatalog.Models
         [Required(ErrorMessage = "The country is required")]
         [Display(Name = "Country")]
         public string Country { get; set; }
+
+        public Address()
+        {
+            Street = "";
+            PostalCode = "";
+            City = "";
+            Country = "";
+        }
     }
 }

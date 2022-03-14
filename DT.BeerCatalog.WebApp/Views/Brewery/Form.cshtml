@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<form asp-action="Create" method="post" role="form">
+<form asp-action="@Model.Action" method="post" role="form">
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -72,12 +72,12 @@
     </div>
 
     <div class="row mb-3">
-        <input asp-for="CurrentBrewery.Beers" type="hidden" />
+        <input asp-for="CurrentBrewery.Beers" type="hidden" /><!-- TODO Beer selection -->
     </div>
 
     <div class="row mb-3">
         <div class="col-md-12">
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="submit" value="@Model.SubmitButtonLabel" class="btn btn-primary" />
         </div>
     </div>
 </form>
@@ -89,5 +89,6 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/BreweryCreate.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/BreweryForm.js"></script>
 }

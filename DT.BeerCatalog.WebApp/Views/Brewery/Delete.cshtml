@@ -7,22 +7,7 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">Street</div>
-    <div class="col-md-8">@Model.CurrentBrewery.Name</div>
-</div>
-<div class="row">
-    <div class="col-md-4">Number</div>
-    <div class="col-md-8">@Model.CurrentBrewery.About</div>
-</div>
-<div class="row">
-    <div class="col-md-4">PostalCode</div>
-    <div class="col-md-8">@Model.CurrentBrewery.Address</div>
-</div>
-<div class="row">
-    <div class="col-md-4">City</div>
-    <div class="col-md-8">@Model.CurrentBrewery.Beers</div>
-</div>
+@await Html.PartialAsync("_BreweryDetails", Model.CurrentBrewery)
 
 <div class="row">
     <div class="col-md-12">
